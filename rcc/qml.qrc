@@ -1,0 +1,28 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="main.qml">../qml/main.qml</file>
+        <file>../qml/ModuleHelp/qmldir</file>
+        <file>../qml/ModuleHelp/Impl/qmldir</file>
+        <file>../qml/ModuleHelp/Impl/ImplHelp.qml</file>
+        <file>../qml/ModuleMorseCode/qmldir</file>
+        <file>../qml/ModuleMorseCode/Impl/qmldir</file>
+        <file>../qml/ModuleMorseCode/Impl/ImplMorseCode.qml</file>
+        <file>../qml/ModuleAbout/qmldir</file>
+        <file>../qml/ModuleAbout/Impl/qmldir</file>
+        <file>../qml/ModuleAbout/Impl/ImplAbout.qml</file>
+        <file>../qml/ModuleStyle/qmldir</file>
+        <file>../qml/ModuleStyle/StyleConfig.qml</file>
+        <file>../qml/ModuleMorseCode/ButtonsPanel/Impl/ImplButtonsPanel.qml</file>
+        <file>../qml/ModuleMorseCode/ButtonsPanel/Impl/qmldir</file>
+        <file>../qml/ModuleMorseCode/ButtonsPanel/qmldir</file>
+        <file>../qml/ModuleHeader/Impl/ImplHeader.qml</file>
+        <file>../qml/ModuleHeader/Impl/qmldir</file>
+        <file>../qml/ModuleHeader/qmldir</file>
+        <file>../qml/ModuleEncryptMorseCode/Impl/ImplEncryptMorseCode.qml</file>
+        <file>../qml/ModuleEncryptMorseCode/Impl/qmldir</file>
+        <file>../qml/ModuleEncryptMorseCode/qmldir</file>
+        <file>../qml/ModuleMorseCodeToRu/Impl/ImplMorseCodeToRu.qml</file>
+        <file>../qml/ModuleMorseCodeToRu/Impl/qmldir</file>
+        <file>../qml/ModuleMorseCodeToRu/qmldir</file>
+    </qresource>
+</RCC>
