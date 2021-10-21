@@ -40,7 +40,6 @@ set(TS_FILES MorseCode_ru_RU.ts)
 
 set(PROJECT_HEADERS
         includes/morsecode.hpp
-        includes/internationmorse.hpp
         ${QML_IMPORT_PATH}
     )
 
