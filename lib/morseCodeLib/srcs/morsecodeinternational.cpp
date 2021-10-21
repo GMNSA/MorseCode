@@ -15,6 +15,13 @@ MorseCodeInternational::~MorseCodeInternational()
   // dtor
 }
 
+/**
+ * @brief MorseCodeInternational::encryption
+ *        (Encrypt get Data to MorseCode)
+ * @param _text -> The Text that we will encrypt.
+ * @return -> (QString) Encrypted Data.
+ */
+
 QString
 MorseCodeInternational::encryption(QString const _text)
 {
@@ -36,35 +43,15 @@ MorseCodeInternational::encryption(QString const _text)
 
   tmpText = (tmpText.toUpper());
 
-  auto punctuationIter{ letterPunctuation.begin() };
-  auto punctuationIterEnd{ letterPunctuation.end() };
+  auto text{ splitText(tmpText) };
+  encryptData(text, letterPunctuation);
+  encryptData(text, lettersDigit);
+  encryptData(text, lettersEn);
+  encryptData(text, lettersRu);
 
-  for (; punctuationIter != punctuationIterEnd; ++punctuationIter) {
-    tmpText.replace(punctuationIter.key(), punctuationIter.value());
-  }
+  tmpText = text.join(" ");
 
-  auto digitIter{ lettersDigit.begin() };
-  auto digitIterEnd{ lettersDigit.end() };
-
-  for (; digitIter != digitIterEnd; ++digitIter) {
-    tmpText.replace(digitIter.key(), digitIter.value());
-  }
-
-  auto enIter{ lettersEn.begin() };
-  auto enIterEnd{ lettersEn.end() };
-
-  for (; enIter != enIterEnd; ++enIter) {
-    tmpText.replace(enIter.key(), enIter.value());
-  }
-
-  auto ruIter{ lettersRu.begin() };
-  auto ruIterEnd{ lettersRu.end() };
-
-  for (; ruIter != ruIterEnd; ++ruIter) {
-    tmpText.replace(ruIter.key(), ruIter.value());
-  }
-
-  qDebug() << "RESULT: " << tmpText;
+  qDebug() << "ALL RESULT: " << tmpText;
   return (tmpText);
 }
 
@@ -89,7 +76,7 @@ MorseCodeInternational::decryptionToEn(const QString text_)
 
   tmpText = joinText(splitText);
 
-  qDebug() << "RESULT: " << tmpText;
+  qDebug() << "DECRYPT EN RESULT: " << tmpText;
   return (tmpText);
 }
 
@@ -139,4 +126,60 @@ MorseCodeInternational::decodProcess(QStringList splitText,
     }
   }
   return (splitText);
+}
+
+/**
+ * @brief MorseCodeInternational::encryptData
+ *        ( encrypt the data in the morse code )
+ * @param text_ -> (QStringList &) The Data that we wiil encrypt.
+ * @param data_ -> (Morse Code)
+ */
+void
+MorseCodeInternational::encryptData(QStringList& text_,
+                                    QMap<QString, QString> data_)
+{
+  auto iterator{ data_.begin() };
+  auto iteratorEnd{ data_.end() };
+
+  for (auto& i : text_) {
+    iterator = { data_.begin() };
+    for (; iterator != iteratorEnd; ++iterator) {
+      if (i == iterator.key())
+        i = iterator.value();
+    }
+  }
+}
+
+/**
+ * @brief MorseCodeInternational::splitText
+ *          (Splits Letter into spaces, words into '|' )
+ * @param text_ -> (QString const &) The Data that we will split.
+ * @return -> QStringList
+ */
+QStringList
+MorseCodeInternational::splitText(const QString& text_)
+{
+  QStringList temp;
+  QString tmpText{ text_ };
+
+  qDebug() << "origin: " << text_;
+
+  bool isSpace{ false };
+  tmpText = tmpText.replace("|", " ");
+
+  for (auto& i : text_) {
+    if (i == ' ') {
+      isSpace = true;
+      temp.push_back("|");
+    } else if (isSpace && i == ' ') {
+      continue;
+    } else if (isSpace) {
+      temp.push_back(i);
+      isSpace = false;
+    } else {
+      temp.push_back(i);
+    }
+  }
+
+  return (temp);
 }

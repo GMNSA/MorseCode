@@ -29,5 +29,7 @@ private:
   QString joinText(QStringList text_);
   QStringList decodProcess(QStringList text_,
                            QMap<QString, QString> codeProcess_);
+  void encryptData(QStringList& text_, QMap<QString, QString> data_);
+  QStringList splitText(QString const& text_);
 };
 #endif // MORSECODEINTERNATIONAL_HPP
