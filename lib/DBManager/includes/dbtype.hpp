@@ -19,7 +19,8 @@ enum class DBState
   ERROR_DRIVER,
   ERROR_WORKSPACE,
   ERROR_OPEN,
-  ERROR_TABLES
+  ERROR_TABLES,
+  ERROR_COPY_DATABASE
 };
 
 static QMap<QString, QString> gDBContactsArgs{ { "Contacts",
