@@ -24,12 +24,14 @@ struct DBRemove
 
 struct ConnectManager::ConnectManagerPrivate
 {
+  std::unique_ptr<QSqlDatabase> database;
   bool isValid{ false };
   DBState state{ DBState::OK };
   QString dbFullPath;
 
   bool setup();
   bool setupWorkspace();
+  bool setupDatabase();
   bool setupTables();
 };
 
@@ -61,6 +63,8 @@ ConnectManager::state()
       return ("OPEN ERROR.");
     case DBState::ERROR_TABLES:
       return ("TABLES ERROR");
+    case DBState::ERROR_COPY_DATABASE:
+      return ("COPY DATABASE");
     default:
       return {};
   }
@@ -96,11 +100,27 @@ ConnectManager::ConnectManagerPrivate::setup()
     return (false);
   }
 
+  if (!setupDatabase()) {
+    state = nsDb::DBState::ERROR_COPY_DATABASE;
+    qCritical() << "Error COPY Database";
+    return (false);
+  }
+
+  database.reset(new QSqlDatabase{ QSqlDatabase::addDatabase(driver) });
+  database->setDatabaseName(dbFullPath);
+
+  if (!database->open()) {
+    state = DBState::ERROR_OPEN;
+    qCritical() << "Err0R: Database didn't open !";
+    return (false);
+  }
+
   if (!setupTables()) {
     state = nsDb::DBState::ERROR_TABLES;
     qCritical() << "Error Tables";
     return (false);
   }
+  qDebug() << "dbpath: " << dbFullPath;
 
   return (true);
 }
@@ -125,29 +145,35 @@ ConnectManager::ConnectManagerPrivate::setupWorkspace()
     qInfo() << "Creating dir to database. [" << result << "]";
   }
   dbFullPath = dbPath + "/" + name;
+
   qDebug() << "<< ----------- dbFullPath: " << dbFullPath;
 
   return (dir.exists());
 }
 
 bool
-ConnectManager::ConnectManagerPrivate::setupTables()
+ConnectManager::ConnectManagerPrivate::setupDatabase()
 {
   QFile file(dbFullPath);
 
   bool result{ true };
 
   if (!file.exists()) {
-    qInfo() << "Copy db [...] to " << dbFullPath;
     result = QFile::copy(":/morse.db", dbFullPath);
 
-    if (!result) {
-      qInfo() << "Db did't copy";
-    }
+    if (result)
+      qInfo() << "The Database was copied [...] to " << dbFullPath;
   }
+
   file.close();
 
   return (result);
+}
+
+bool
+ConnectManager::ConnectManagerPrivate::setupTables()
+{
+  return (true);
 }
 
 }
