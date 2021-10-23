@@ -13,11 +13,13 @@ set(CMAKE_CXX_FLAGS "-g3 -Wall -Wextra -Werror")
 
 set(HEADERS
     includes/connectmanager.hpp
+    includes/executor.hpp
     includes/dbtype.hpp
     )
 
 set(SOURCES
     srcs/connectmanager.cpp
+    srcs/executor.cpp
     ${CMAKE_CURRENT_LIST_DIR}/../../rcc/application.qrc
     )
 
