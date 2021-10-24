@@ -23,8 +23,18 @@ enum class DBState
   ERROR_COPY_DATABASE
 };
 
-static QMap<QString, QString> gDBContactsArgs{ { "Contacts",
-                                                 "name, surname, phone" } };
+enum class DBTables
+{
+  EN_ALPHABET = 0,
+  RUS_ALPHABET,
+  DIGITS,
+  PUNCTUATION
+};
+
+static QMap<QString, QString> gDBaseArgs{ { "enalphabet", "letter, code" },
+                                          { "rusalphabet", "letter, code" },
+                                          { "digits", "number, code" },
+                                          { "punctuation", "letter, code" } };
 }
 
 #endif // DB_TYPE_HPP
