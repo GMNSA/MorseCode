@@ -57,4 +57,11 @@ TestMorseCode::test_decrtyptEn()
   // qDebug() << m_app.decryptionToEn(".--. .. - . .-.     .--. .- -.");
 }
 
+void
+TestMorseCode::test_convertingData()
+{
+  auto result = m_processor.requestData(nsDb::DBTables::PUNCTUATION);
+  qDebug() << result.second;
+}
+
 QTEST_APPLESS_MAIN(TestMorseCode)

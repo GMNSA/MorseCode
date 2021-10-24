@@ -14,6 +14,8 @@ set(LIB_MORSE_CODE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../lib)
 set(LIB_MORSE_CODE_HEADERS${CMAKE_CURRENT_SOURCE_DIR}/../../lib/morseCodeLib/includes)
 
 
+add_compile_definitions(FOR_TEST)
+
 set(HEADERS
     includes/tst_morseCode.hpp
     )
