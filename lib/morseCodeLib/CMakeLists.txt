@@ -10,6 +10,9 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_FLAGS "-g3 -Wall -Wextra -Werror")
 
+set(LIB_DBMANAGER ${CMAKE_CURRENT_SOURCE_DIR}/../../lib)
+set(LIB_DBMANAGER_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/../../lib/DBManager/includes)
+
 
 set(HEADERS
     includes/morsecodeinternational.hpp
@@ -38,12 +41,15 @@ target_include_directories(${OUT_NAME}
         PUBLIC
         ${CMAKE_CURRENT_LIST_DIR}/includes
         ${CMAKE_CURRENT_BINARY_DIR}
+        ${LIB_DBMANAGER}
+        ${LIB_DBMANAGER_HEADERS}
         )
 
 
 target_link_libraries(${OUT_NAME}
         PUBLIC
         Qt5::Core
+        dbManager
         )
 
 
