@@ -47,7 +47,6 @@ TestMorseCode::test_ruText()
     ".- --. .- --.. .. -. . --..-- --..-- --..--"
   };
   QString origText = m_app.encryption("Я сегодня был в магазине,,,");
-  qDebug() << "ncrypt: " << encryptText;
   QVERIFY2(origText == encryptText, "text' not valid.");
 }
 
