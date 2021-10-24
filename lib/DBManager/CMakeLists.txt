@@ -15,11 +15,15 @@ set(HEADERS
     includes/connectmanager.hpp
     includes/executor.hpp
     includes/dbtype.hpp
+    includes/selector.hpp
+    includes/processor.hpp
     )
 
 set(SOURCES
     srcs/connectmanager.cpp
     srcs/executor.cpp
+    srcs/selector.cpp
+    srcs/processor.cpp
     ${CMAKE_CURRENT_LIST_DIR}/../../rcc/application.qrc
     )
 
