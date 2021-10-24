@@ -5,15 +5,28 @@
 #include <QDebug>
 
 MorseCodeInternational::MorseCodeInternational()
-  : m_nLimitText(200)
+  : m_processor(std::make_unique<nsDb::Processor>())
+  , m_nLimitText(200)
+  , m_letterPunctuation(convertingDataForTwoData(
+      m_processor->requestData(nsDb::DBTables::PUNCTUATION)))
+  , m_lettersDigit(convertingDataForTwoData(
+      m_processor->requestData(nsDb::DBTables::DIGITS)))
+  , m_lettersEn(convertingDataForTwoData(
+      m_processor->requestData(nsDb::DBTables::EN_ALPHABET)))
+  , m_lettersRu(convertingDataForTwoData(
+      m_processor->requestData(nsDb::DBTables::RUS_ALPHABET)))
 {
   // ctor
 }
+
+/*          ***** ***** ***** *****          */
 
 MorseCodeInternational::~MorseCodeInternational()
 {
   // dtor
 }
+
+/*          ***** ***** ***** *****          */
 
 /**
  * @brief MorseCodeInternational::encryption
@@ -44,10 +57,11 @@ MorseCodeInternational::encryption(QString const _text)
   tmpText = (tmpText.toUpper());
 
   auto text{ splitText(tmpText) };
-  encryptData(text, letterPunctuation);
-  encryptData(text, lettersDigit);
-  encryptData(text, lettersEn);
-  encryptData(text, lettersRu);
+
+  encryptData(text, m_letterPunctuation);
+  encryptData(text, m_lettersDigit);
+  encryptData(text, m_lettersEn);
+  encryptData(text, m_lettersRu);
 
   tmpText = text.join(" ");
 
@@ -55,30 +69,36 @@ MorseCodeInternational::encryption(QString const _text)
   return (tmpText);
 }
 
+/*          ***** ***** ***** *****          */
+
 QString
 MorseCodeInternational::decryptionToEn(const QString text_)
 {
-  QString tmpText = text_;
-  qDebug() << "PSSS: " << tmpText;
+  Q_UNUSED(text_);
+  // QString tmpText = text_;
+  // qDebug() << "PSSS: " << tmpText;
 
-  if (tmpText.isEmpty())
-    return {};
+  // if (tmpText.isEmpty())
+  //   return {};
 
-  // if (tmpText.size() > m_nLimitText) {
-  //   tmpText = tmpText.left(m_nLimitText);
-  // }
+  // // if (tmpText.size() > m_nLimitText) {
+  // //   tmpText = tmpText.left(m_nLimitText);
+  // // }
 
-  m_lastOrigTextEncrypt = tmpText;
+  // m_lastOrigTextEncrypt = tmpText;
 
-  auto splitText{ text_.split(" ") };
+  // auto splitText{ text_.split(" ") };
 
-  splitText = decodProcess(splitText, codeToLetterEn);
+  // splitText = decodProcess(splitText, codeToLetterEn);
 
-  tmpText = joinText(splitText);
+  // tmpText = joinText(splitText);
 
-  qDebug() << "DECRYPT EN RESULT: " << tmpText;
-  return (tmpText);
+  // qDebug() << "DECRYPT EN RESULT: " << tmpText;
+  // return (tmpText);
+  return {};
 }
+
+/*          ***** ***** ***** *****          */
 
 void
 MorseCodeInternational::clearData()
@@ -86,11 +106,15 @@ MorseCodeInternational::clearData()
   m_lastOrigText.clear();
 }
 
+/*          ***** ***** ***** *****          */
+
 void
 MorseCodeInternational::setNLimitText(int limit_)
 {
   m_nLimitText = limit_;
 }
+
+/*          ***** ***** ***** *****          */
 
 QString
 MorseCodeInternational::joinText(QStringList text_)
@@ -108,6 +132,8 @@ MorseCodeInternational::joinText(QStringList text_)
 
   return (result);
 }
+
+/*          ***** ***** ***** *****          */
 
 QStringList
 MorseCodeInternational::decodProcess(QStringList splitText,
@@ -127,6 +153,8 @@ MorseCodeInternational::decodProcess(QStringList splitText,
   }
   return (splitText);
 }
+
+/*          ***** ***** ***** *****          */
 
 /**
  * @brief MorseCodeInternational::encryptData
@@ -149,6 +177,8 @@ MorseCodeInternational::encryptData(QStringList& text_,
     }
   }
 }
+
+/*          ***** ***** ***** *****          */
 
 /**
  * @brief MorseCodeInternational::splitText
@@ -182,4 +212,30 @@ MorseCodeInternational::splitText(const QString& text_)
   }
 
   return (temp);
+}
+
+/*          ***** ***** ***** *****          */
+
+QMap<QString, QString>
+MorseCodeInternational::convertingDataForTwoData(
+  QPair<nsDb::DBResult, QVector<QVariantList>> data_)
+{
+  Q_UNUSED(data_);
+
+  if (data_.first == nsDb::DBResult::FALSE) {
+    qCritical() << "convertingDataForTwoData: GET RESULT [FALSE]";
+    return {};
+  }
+
+  QMap<QString, QString> returnData;
+  int nData{ 0 };
+
+  for (auto& list : data_.second) {
+    nData = list.size();
+    if (nData == 2) {
+      returnData[list.at(0).toString()] = list.at(1).toString();
+    }
+  }
+
+  return { returnData };
 }
