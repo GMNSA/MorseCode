@@ -21,7 +21,6 @@ Executor::Executor()
 QPair<DBResult, QSqlQuery>
 Executor::executor(const QString& queryText_, const QVariantList& args_)
 {
-  qDebug() << "STATE: " << m_connectManager.state();
   if (!m_connectManager.isValid()) {
     qCritical("Database is not valid!");
     return { DBResult::FALSE, QSqlQuery{} };
