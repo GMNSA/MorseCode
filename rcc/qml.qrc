@@ -21,8 +21,8 @@
         <file>../qml/ModuleEncryptMorseCode/Impl/ImplEncryptMorseCode.qml</file>
         <file>../qml/ModuleEncryptMorseCode/Impl/qmldir</file>
         <file>../qml/ModuleEncryptMorseCode/qmldir</file>
-        <file>../qml/ModuleMorseCodeToRu/Impl/ImplMorseCodeToRu.qml</file>
-        <file>../qml/ModuleMorseCodeToRu/Impl/qmldir</file>
-        <file>../qml/ModuleMorseCodeToRu/qmldir</file>
+        <file>../qml/ModuleMorseCodeDecrypt/Impl/ImplMorseCodeDecrypt.qml</file>
+        <file>../qml/ModuleMorseCodeDecrypt/Impl/qmldir</file>
+        <file>../qml/ModuleMorseCodeDecrypt/qmldir</file>
     </qresource>
 </RCC>
