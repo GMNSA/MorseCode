@@ -14,7 +14,7 @@ public:
   virtual ~MorseCodeInternational();
 
   QString encryption(QString const text_);
-  QString decryptionToEn(QString const text_);
+  QString decryption(QString const text_, int type_);
   void clearData();
   QString test() const { return ("TEST"); };
 
@@ -26,6 +26,7 @@ private:
   std::unique_ptr<nsDb::Processor> m_processor;
   QString m_lastOrigText;
   QString m_lastOrigTextEncrypt;
+  QString m_lastOrigTextDecrypt;
   int m_nLimitText;
 
   QMap<QString, QString> m_letterPunctuation;
@@ -35,10 +36,10 @@ private:
 
 private:
   QString joinText(QStringList text_);
-  QStringList decodProcess(QStringList text_,
-                           QMap<QString, QString> codeProcess_);
+  QStringList decoderData(QStringList& text_,
+                          QMap<QString, QString> codeProcess_);
   void encryptData(QStringList& text_, QMap<QString, QString> data_);
-  QStringList splitText(QString const& text_);
+  QStringList splitText(QString const& text_, QString const& = "|");
 
 #ifdef FOR_TEST
 public:

@@ -65,37 +65,47 @@ MorseCodeInternational::encryption(QString const _text)
 
   tmpText = text.join(" ");
 
-  qDebug() << "ALL RESULT: " << tmpText;
   return (tmpText);
 }
 
 /*          ***** ***** ***** *****          */
 
 QString
-MorseCodeInternational::decryptionToEn(const QString text_)
+MorseCodeInternational::decryption(const QString text_, int type_)
 {
-  Q_UNUSED(text_);
-  // QString tmpText = text_;
-  // qDebug() << "PSSS: " << tmpText;
+  QString tmpText = text_;
 
-  // if (tmpText.isEmpty())
-  //   return {};
+  if (tmpText.isEmpty())
+    return {};
 
-  // // if (tmpText.size() > m_nLimitText) {
-  // //   tmpText = tmpText.left(m_nLimitText);
-  // // }
+  m_lastOrigTextDecrypt = tmpText;
 
-  // m_lastOrigTextEncrypt = tmpText;
+  auto textSplitted{ text_.split(" ") };
 
-  // auto splitText{ text_.split(" ") };
+  switch (type_) {
+    case 1:
+      decoderData(textSplitted, m_lettersRu);
+      decoderData(textSplitted, m_lettersDigit);
+      decoderData(textSplitted, m_letterPunctuation);
+      break;
+    case 0:
+      decoderData(textSplitted, m_lettersEn);
+      decoderData(textSplitted, m_lettersDigit);
+      decoderData(textSplitted, m_letterPunctuation);
+      break;
+    default:
+      return {};
+  }
 
-  // splitText = decodProcess(splitText, codeToLetterEn);
+  // if (tmpText.size() > m_nLimitText) {
+  //   tmpText = tmpText.left(m_nLimitText);
+  // }
 
-  // tmpText = joinText(splitText);
+  auto result = textSplitted.join("");
+  result = result.replace("|", " ");
+  result = result.replace("/", " ");
 
-  // qDebug() << "DECRYPT EN RESULT: " << tmpText;
-  // return (tmpText);
-  return {};
+  return (result);
 }
 
 /*          ***** ***** ***** *****          */
@@ -135,23 +145,28 @@ MorseCodeInternational::joinText(QStringList text_)
 
 /*          ***** ***** ***** *****          */
 
+/**
+ * @brief MorseCodeInternational::decodData
+ *        ( encrypt the data in the morse code )
+ * @param text_ -> (QStringList &) The Data that we wiil encrypt.
+ * @param data_ -> (Morse Code)
+ */
 QStringList
-MorseCodeInternational::decodProcess(QStringList splitText,
-                                     QMap<QString, QString> codeProcess_)
+MorseCodeInternational::decoderData(QStringList& text_,
+                                    QMap<QString, QString> data_)
 {
-  auto beginIter{ codeProcess_.begin() };
-  auto endIter{ codeProcess_.end() };
+  auto iterator{ data_.begin() };
+  auto iteratorEnd{ data_.end() };
 
-  for (auto& l : splitText) {
-    beginIter = codeProcess_.begin();
-    for (; beginIter != endIter; ++beginIter) {
-      if ((l + " ") == beginIter.key()) {
-        l = beginIter.value();
-        break;
-      }
+  for (auto& i : text_) {
+    iterator = { data_.begin() };
+    for (; iterator != iteratorEnd; ++iterator) {
+      if (i == iterator.value())
+        i = iterator.key();
     }
   }
-  return (splitText);
+
+  return (text_);
 }
 
 /*          ***** ***** ***** *****          */
@@ -187,7 +202,7 @@ MorseCodeInternational::encryptData(QStringList& text_,
  * @return -> QStringList
  */
 QStringList
-MorseCodeInternational::splitText(const QString& text_)
+MorseCodeInternational::splitText(const QString& text_, QString const& split_)
 {
   QStringList temp;
   QString tmpText{ text_ };
@@ -195,7 +210,7 @@ MorseCodeInternational::splitText(const QString& text_)
   qDebug() << "origin: " << text_;
 
   bool isSpace{ false };
-  tmpText = tmpText.replace("|", " ");
+  tmpText = tmpText.replace(split_, " ");
 
   for (auto& i : text_) {
     if (i == ' ') {
