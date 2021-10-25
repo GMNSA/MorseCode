@@ -26,7 +26,6 @@ ImplMorseCode {
         }
 
         fbtnClear.onClicked: {
-          fmorseCode.clearData();
           fencryptText.clear()
           foriginalText.clear()
         }

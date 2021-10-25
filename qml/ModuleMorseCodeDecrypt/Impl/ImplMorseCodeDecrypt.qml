@@ -36,7 +36,6 @@ ImplMorseCode {
             {
                 fencryptText.text = fmorseCode.decrypt(foriginalText.text,
                                                          _comboBox.currentIndex)
-                foriginalText.text = fmorseCode.lastOriginalCodeDecrypt()
             }
         }
 
@@ -47,7 +46,6 @@ ImplMorseCode {
 
         fbtnClear.onClicked: {
           fmorseCode.clearData();
-          // fmorseCode.clearDecryptData()
           fencryptText.clear()
           foriginalText.clear()
         }
