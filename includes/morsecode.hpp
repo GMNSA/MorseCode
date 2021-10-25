@@ -14,6 +14,7 @@ public:
   virtual ~MorseCode();
 
   Q_INVOKABLE QString encryption(QString const text_);
+  Q_INVOKABLE QString decrypt(QString const text_, int language_);
   Q_INVOKABLE void clearData();
   QString test() const { return ("TEST"); };
 

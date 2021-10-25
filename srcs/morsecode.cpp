@@ -21,6 +21,12 @@ MorseCode::encryption(QString const text_)
   return (m_morseCode.encryption(text_));
 }
 
+QString
+MorseCode::decrypt(const QString text_, int language_)
+{
+  return (m_morseCode.decryption(text_, language_));
+}
+
 void
 MorseCode::clearData()
 {
