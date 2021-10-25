@@ -18,7 +18,7 @@ private slots:
   void test_en();
   void test_ru();
   void test_ruText();
-  void test_decrtyptEn();
+  void test_decryption();
 
   void test_convertingData();
 

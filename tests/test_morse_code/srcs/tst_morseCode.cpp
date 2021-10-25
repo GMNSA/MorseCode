@@ -51,17 +51,38 @@ TestMorseCode::test_ruText()
 }
 
 void
-TestMorseCode::test_decrtyptEn()
+TestMorseCode::test_decryption()
 {
-  // piter pan
-  // qDebug() << m_app.decryptionToEn(".--. .. - . .-.     .--. .- -.");
+  qDebug() << m_app.decryption(
+    ".-.- | ... . --. --- -.. -. .-.- | -... -.-- .-.. | .-- | "
+    "--  .- --. .- --.. .. -. . --..-- --..-- --..--",
+    0);
+
+  qDebug() << m_app.decryption(
+    "- .... . .-. . | .. ... | -. --- | ... .--. --- --- -. .-.-.-", 1);
+
+  qDebug() << m_app.decryption(
+    "... . -. -.. | -.-- --- ..- .-. | -- . ... ... .- --. . |    -   --- | .- "
+    "| "
+    "..-. .-. .. . -. -.. | ... .... .- .-. . | - .... . | -- . ... ... .- --. "
+    ". | .- -... --- ...- . | .. -. | -- --- .-. ... . | -.-. ---   -.. . | "
+    "-.--. .... . .-. . | .. ... | .- -. | . -..- .- -- .--. .-..  . -.--.- "
+    ".-.-.- | - .... . | -.-. ..- .-. .-. . -. - | ... --- ..- -. -.. --..-- | "
+    ".-.. .. --. .... - | .- -. -.. | ... .--. . . -.. |    ... . - - .. -. "
+    "--. "
+    "... | .-- .. .-.. .-.. | -... . | ..- ... . -.. .-.-.- | .. ..-. | - .... "
+    ". -.-- | -.- -. --- .-- | -- --- .-.   ... . | -.-. --- -.. . | -.-- --- "
+    "..- | -.-. .- -.    | .... .. -.. .   | - .... . | - . -..- - .-.-.- "
+    ".-.-.- "
+    ".-.-.-",
+    1);
 }
 
 void
 TestMorseCode::test_convertingData()
 {
   auto result = m_processor.requestData(nsDb::DBTables::PUNCTUATION);
-  qDebug() << result.second;
+  // qDebug() << "CONVERTING data: " << result.second;
 }
 
 QTEST_APPLESS_MAIN(TestMorseCode)

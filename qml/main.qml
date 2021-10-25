@@ -9,7 +9,7 @@ import ModuleHelp.Impl 1.0
 import ModuleAbout.Impl 1.0
 import ModuleHeader.Impl 1.0
 import ModuleEncryptMorseCode.Impl 1.0
-import ModuleMorseCodeToRu.Impl 1.0
+import ModuleMorseCodeDecrypt.Impl 1.0
 
 
 ApplicationWindow {
@@ -30,8 +30,8 @@ ApplicationWindow {
 
     StackView {
         id: _stackView
-        initialItem: _morseEncryptCode
-        // initialItem: _help
+        // initialItem: _morseEncryptCode
+        initialItem: _morseDecrypt
         anchors.fill: parent
 
     }
@@ -47,8 +47,8 @@ ApplicationWindow {
         visible: false
     }
 
-    ImplMorseCodeToRu {
-        id: _morseCodeToRu
+    ImplMorseCodeDecrypt {
+        id: _morseDecrypt
         visible: false
 
     }
@@ -81,7 +81,7 @@ ApplicationWindow {
             }
 
             ItemDelegate {
-                text: qsTr("Morse Code to RU")
+                text: qsTr("Morse Code decrypting")
                 width: parent.width
                 onClicked: {
                     if (_stackView.depth > 1)
@@ -89,21 +89,7 @@ ApplicationWindow {
                         _stackView.pop()
                         console.log("morse code pop")
                     }
-                    _stackView.push(_morseCodeToRu)
-                    _drawer.close()
-                }
-            }
-
-            ItemDelegate {
-                text: qsTr("Morse Code to EN")
-                width: parent.width
-                onClicked: {
-                    if (_stackView.depth > 1)
-                    {
-                        _stackView.pop()
-                        console.log("morse code pop")
-                    }
-                    _stackView.push(_morseCode)
+                    _stackView.push(_morseDecrypt)
                     _drawer.close()
                 }
             }
