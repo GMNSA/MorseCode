@@ -30,8 +30,8 @@ ApplicationWindow {
 
     StackView {
         id: _stackView
-        // initialItem: _morseEncryptCode
-        initialItem: _morseDecrypt
+        initialItem: _morseEncryptCode
+        // initialItem: _morseDecrypt
         anchors.fill: parent
 
     }
