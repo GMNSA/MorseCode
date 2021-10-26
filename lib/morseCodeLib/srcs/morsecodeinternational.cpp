@@ -102,6 +102,7 @@ MorseCodeInternational::decryption(const QString text_, int type_)
   // }
 
   auto result = textSplitted.join("");
+  result = result.replace("Ё", "Е");
   result = result.replace("|", " ");
   result = result.replace("/", " ");
 
