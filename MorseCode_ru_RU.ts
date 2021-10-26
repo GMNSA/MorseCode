@@ -78,30 +78,25 @@
     <message>
         <location filename="qml/main.qml" line="84"/>
         <location filename="qml/main.qml" line="84"/>
-        <source>Morse Code to RU</source>
+        <source>Morse Code decrypting</source>
+        <oldsource>Morse Code to RU</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/main.qml" line="98"/>
         <location filename="qml/main.qml" line="98"/>
-        <source>Morse Code to EN</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="qml/main.qml" line="112"/>
-        <location filename="qml/main.qml" line="112"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/main.qml" line="126"/>
-        <location filename="qml/main.qml" line="126"/>
+        <location filename="qml/main.qml" line="112"/>
+        <location filename="qml/main.qml" line="112"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/main.qml" line="140"/>
-        <location filename="qml/main.qml" line="140"/>
+        <location filename="qml/main.qml" line="126"/>
+        <location filename="qml/main.qml" line="126"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
